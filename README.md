@@ -100,7 +100,6 @@ Previously generated reports can be stored and accessed through the dashboard.
 
 # 🖥️ Screenshots
 
-> Add your project screenshots inside the `screenshots/` folder.
 
 ### 🏠 Dashboard
 
