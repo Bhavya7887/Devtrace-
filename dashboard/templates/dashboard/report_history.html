@@ -1,0 +1,195 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DevTrace — Report History</title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'dashboard/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="frontier-page">
+
+    <header class="frontier-header">
+
+        <div class="brand-area">
+
+            <div class="brand-badge">
+                D
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    DEVTRACE
+                </div>
+
+                <div class="brand-subtitle">
+                    FRONTIER INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="system-status">
+            ● SYSTEM ONLINE
+        </div>
+
+    </header>
+
+
+    <main class="report-detail-container">
+
+        <div class="wanted-header">
+
+            <div class="wanted-top">
+                CASE FILE ARCHIVE
+            </div>
+
+            <h1 class="wanted-title">
+                REPORT HISTORY
+            </h1>
+
+            <div class="wanted-bottom">
+                PREVIOUS INVESTIGATIONS
+            </div>
+
+        </div>
+
+
+        {% if reports %}
+
+            <section class="report-section">
+
+                <div class="section-heading">
+
+                    <span class="section-number">
+                        01
+                    </span>
+
+                    INVESTIGATION RECORDS
+
+                </div>
+
+
+                <div class="risk-list">
+
+                    {% for report in reports %}
+
+                        <div class="data-card">
+
+                            <div class="data-label">
+                                REPOSITORY
+                            </div>
+
+                            <div class="data-value">
+                                {{ report.repository_name }}
+                            </div>
+
+
+                            <div class="data-label">
+                                LANGUAGE
+                            </div>
+
+                            <div class="data-value">
+                                {{ report.language|default:"Unknown" }}
+                            </div>
+
+
+                            <div class="data-label">
+                                CREATED
+                            </div>
+
+                            <div class="data-value">
+                                {{ report.created_at|date:"d M Y, H:i" }}
+                            </div>
+
+
+                            <div class="report-actions">
+
+                                <a
+                                    href="{% url 'dashboard:report_detail' report.id %}"
+                                    class="frontier-btn primary-btn"
+                                >
+                                    VIEW REPORT
+                                </a>
+
+
+                                <a
+                                    href="{% url 'dashboard:download_report' report.id %}"
+                                    class="frontier-btn secondary-btn"
+                                >
+                                    ↓ DOWNLOAD PDF
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="safe-icon">
+                    📜
+                </div>
+
+                <h2>
+                    NO REPORTS FOUND
+                </h2>
+
+                <p>
+                    No GitHub repository investigations
+                    have been saved yet.
+                </p>
+
+
+                <a
+                    href="{% url 'dashboard:analyze' %}"
+                    class="frontier-btn primary-btn"
+                >
+                    START INVESTIGATION
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer class="report-footer">
+
+        DEVTRACE • FRONTIER INTELLIGENCE
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>

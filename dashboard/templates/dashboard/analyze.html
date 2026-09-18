@@ -1,0 +1,363 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"
+      href="{% static 'dashboard/style.css' %}">
+    <title>DevTrace — Frontier Intelligence</title>
+    <a href="{% url 'dashboard:report_history' %}">
+    REPORT HISTORY
+</a>
+
+    <link rel="stylesheet"
+          href="{% static 'dashboard/style.css' %}">
+
+</head>
+
+
+<body>
+
+<div class="frontier-page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="frontier-header">
+
+        <div class="brand">
+
+            <div class="brand-badge">
+                <span>D</span>
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    DEVTRACE
+                </div>
+
+                <div class="brand-sub">
+                    FRONTIER INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="online-status">
+                <span class="online-dot"></span>
+                SYSTEM ONLINE
+            </div>
+
+            <div class="case-number">
+                ★ CASE FILE 001
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero-section">
+
+            <div class="hero-eyebrow">
+                ★ PRIVATE CODEBASE INTELLIGENCE ★
+            </div>
+
+
+            <h1 class="hero-title">
+
+                ENTER THE
+
+                <span>
+                    REPOSITORY.
+                </span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                DevTrace investigates GitHub repositories,
+                follows the commit trail, maps the codebase,
+                and hunts for potential risk signals.
+
+            </p>
+
+
+            <div class="western-divider">
+
+                <span>★</span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= INVESTIGATION CARD ================= -->
+
+        <section class="investigation-wrapper">
+
+            <div class="investigation-card">
+
+
+                <div class="card-top">
+
+                    <div class="section-label">
+                        ★ CASE FILE 001
+                    </div>
+
+                    <div class="classified">
+                        FRONTIER / INTELLIGENCE
+                    </div>
+
+                </div>
+
+
+
+                <div class="card-title-area">
+
+                    <h2>
+                        REPOSITORY
+                        <span>INVESTIGATION</span>
+                    </h2>
+
+                    <p>
+                        Identify the repository and begin
+                        your investigation.
+                    </p>
+
+                </div>
+
+
+
+                <!-- FORM -->
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <label class="western-label">
+
+                        ★ GITHUB REPOSITORY URL
+
+                    </label>
+
+
+                    <div class="input-row">
+
+                        <input
+                            type="text"
+                            name="github_url"
+                            class="western-input"
+                            placeholder="https://github.com/owner/repository"
+                            required
+                        >
+
+
+                        <button
+                            type="submit"
+                            class="investigate-btn">
+
+                            ★
+                            START INVESTIGATION
+
+                        </button>
+
+                    </div>
+
+
+                    <div class="example-url">
+
+                        ◆ Example:
+
+                        <span>
+                            https://github.com/Bhavya7887/HTML
+                        </span>
+
+                    </div>
+
+                </form>
+
+
+
+                {% if error %}
+
+                <div class="error-message">
+
+                    ⚠ {{ error }}
+
+                </div>
+
+                {% endif %}
+
+
+
+                <!-- ================= CASE DETAILS ================= -->
+
+                <div class="case-details">
+
+                    <div class="case-detail">
+
+                        <span>INVESTIGATION TYPE</span>
+
+                        <strong>
+                            GITHUB CODEBASE
+                        </strong>
+
+                    </div>
+
+
+                    <div class="case-detail">
+
+                        <span>ANALYSIS MODE</span>
+
+                        <strong>
+                            FULL REPOSITORY
+                        </strong>
+
+                    </div>
+
+
+                    <div class="case-detail">
+
+                        <span>SECURITY SCAN</span>
+
+                        <strong>
+                            ENABLED
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= FEATURES ================= -->
+
+        <section class="features-section">
+
+
+            <div class="features-heading">
+
+                <span>THE FRONTIER TOOLKIT</span>
+
+                <h2>
+                    WHAT WE INVESTIGATE
+                </h2>
+
+            </div>
+
+
+
+            <div class="feature-grid">
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        </>
+                    </div>
+
+                    <h3>
+                        CODEBASE
+                    </h3>
+
+                    <p>
+                        Explore repository files,
+                        folders and project structure.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ↯
+                    </div>
+
+                    <h3>
+                        COMMITS
+                    </h3>
+
+                    <p>
+                        Follow the development trail
+                        and discover contributor activity.
+                    </p>
+
+                </div>
+
+
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        ⚠
+                    </div>
+
+                    <h3>
+                        RISKS
+                    </h3>
+
+                    <p>
+                        Hunt potential secrets,
+                        suspicious files and risk signals.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="frontier-footer">
+
+        <div>
+            ★ DEVTRACE
+            <span>FRONTIER INTELLIGENCE</span>
+        </div>
+
+        <div>
+            THE TRAIL NEVER LIES. ★
+        </div>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

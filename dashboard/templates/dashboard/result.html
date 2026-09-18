@@ -1,0 +1,705 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        DevTrace — Investigation Results
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'dashboard/style.css' %}">
+<link rel="stylesheet"
+      href="{% static 'dashboard/style.css' %}">
+</head>
+
+
+<body>
+
+<div class="frontier-page">
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="frontier-header">
+
+        <div class="brand">
+
+            <div class="brand-badge">
+                <span>D</span>
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    DEVTRACE
+                </div>
+
+                <div class="brand-sub">
+                    FRONTIER INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="online-status">
+                <span class="online-dot"></span>
+                SYSTEM ONLINE
+            </div>
+
+            <a href="/"
+               class="new-investigation">
+
+                ★ NEW INVESTIGATION
+
+            </a>
+            <a
+    href="{% url 'dashboard:report_history' %}"
+    class="new-investigation"
+>
+    ★ CASE FILES
+</a>
+<a
+    href="{% url 'dashboard:report_detail' report_id %}"
+    class="frontier-btn primary-btn"
+>
+    VIEW FULL REPORT
+</a>
+<a
+    href="{% url 'dashboard:download_report' report_id %}"
+    class="frontier-btn primary-btn"
+>
+    ↓ DOWNLOAD REPORT
+</a>
+        </div>
+
+    </header>
+
+
+
+    <!-- ================= RESULT HERO ================= -->
+
+    <main>
+
+        <section class="result-hero">
+
+            <div class="hero-eyebrow">
+
+                ★ INVESTIGATION COMPLETE ★
+
+            </div>
+
+
+            <h1 class="result-title">
+
+                INVESTIGATION
+
+                <span>
+                    RESULTS.
+                </span>
+
+            </h1>
+
+
+            <div class="repository-name">
+
+                {{ repository.full_name }}
+
+            </div>
+
+
+            <div class="investigation-time">
+
+                ◆ CASE ANALYSIS COMPLETE
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= WANTED + SUMMARY ================= -->
+
+        <section class="result-layout">
+
+
+            <!-- WANTED POSTER -->
+
+            <div class="wanted-poster">
+
+
+                <div class="wanted-stars">
+                    ★ ★ ★
+                </div>
+
+
+                <div class="wanted-title">
+                    WANTED
+                </div>
+
+
+                <div class="wanted-subtitle">
+                    REPOSITORY
+                </div>
+
+
+                <div class="github-circle">
+
+                    <span>
+                        &lt;/&gt;
+                    </span>
+
+                </div>
+
+
+                <div class="wanted-repository">
+
+                    {{ repository.full_name }}
+
+                </div>
+
+
+                <div class="wanted-status">
+
+                    STATUS:
+                    <strong>
+                        ANALYZED
+                    </strong>
+
+                </div>
+
+
+                <div class="wanted-stars bottom">
+                    ★ ★ ★
+                </div>
+
+            </div>
+
+
+
+            <!-- SUMMARY -->
+
+            <div class="summary-area">
+
+
+                <div class="summary-grid">
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon red">
+                            &lt;/&gt;
+                        </div>
+
+                        <span>
+                            LANGUAGE
+                        </span>
+
+                        <strong>
+                            {{ repository.language|default:"Unknown" }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon gold">
+                            ★
+                        </div>
+
+                        <span>
+                            STARS
+                        </span>
+
+                        <strong>
+                            {{ repository.stars }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon green">
+                            ⑂
+                        </div>
+
+                        <span>
+                            FORKS
+                        </span>
+
+                        <strong>
+                            {{ repository.forks }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon red">
+                            !
+                        </div>
+
+                        <span>
+                            OPEN ISSUES
+                        </span>
+
+                        <strong>
+                            {{ repository.open_issues }}
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon brown">
+                            ◉
+                        </div>
+
+                        <span>
+                            SIZE
+                        </span>
+
+                        <strong>
+                            {{ repository.size }} KB
+                        </strong>
+
+                    </div>
+
+
+
+                    <div class="summary-card">
+
+                        <div class="summary-icon gold">
+                            ◷
+                        </div>
+
+                        <span>
+                            UPDATED
+                        </span>
+
+                        <strong>
+                            {{ repository.updated_at|slice:":10" }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= INTELLIGENCE ================= -->
+
+        <section class="intelligence-section">
+
+
+            <div class="section-heading">
+
+                <span>
+                    ★ FRONTIER INTELLIGENCE ★
+                </span>
+
+                <h2>
+                    CASE ANALYSIS
+                </h2>
+
+            </div>
+
+
+
+            <div class="intelligence-grid">
+
+
+                <!-- COMMITS -->
+
+                <div class="intelligence-card">
+
+                    <div class="intel-icon">
+                        ⚒
+                    </div>
+
+                    <div class="intel-label">
+                        COMMIT INTELLIGENCE
+                    </div>
+
+                    <div class="intel-number">
+                        {{ commits.total_commits }}
+                    </div>
+
+                    <div class="intel-description">
+                        TOTAL COMMITS
+                    </div>
+
+                </div>
+
+
+
+                <!-- CONTRIBUTORS -->
+
+                <div class="intelligence-card">
+
+                    <div class="intel-icon">
+                        👥
+                    </div>
+
+                    <div class="intel-label">
+                        CONTRIBUTOR ANALYSIS
+                    </div>
+
+                    <div class="intel-number">
+                        {{ commits.contributors }}
+                    </div>
+
+                    <div class="intel-description">
+                        CONTRIBUTORS
+                    </div>
+
+                </div>
+
+
+
+                <!-- CODEBASE -->
+
+                <div class="intelligence-card">
+
+                    <div class="intel-icon">
+                        📁
+                    </div>
+
+                    <div class="intel-label">
+                        CODEBASE OVERVIEW
+                    </div>
+
+                    <div class="intel-number">
+                        {{ files.total_files }}
+                    </div>
+
+                    <div class="intel-description">
+                        FILES DETECTED
+                    </div>
+
+                    <div class="intel-small">
+                        {{ files.total_directories }}
+                        DIRECTORIES
+                    </div>
+
+                </div>
+
+
+
+                <!-- RISK -->
+
+                <div class="intelligence-card">
+
+                    <div class="intel-icon shield">
+                        🛡
+                    </div>
+
+                    <div class="intel-label">
+                        RISK DETECTION
+                    </div>
+
+                    <div class="intel-risk">
+
+                        {% if risks %}
+
+                            <span class="risk-medium">
+                                REVIEW REQUIRED
+                            </span>
+
+                        {% else %}
+
+                            <span class="risk-low">
+                                LOW RISK
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="intel-description">
+                        SECURITY FINDINGS
+                    </div>
+
+                    <div class="intel-small">
+                        {{ risks|length }}
+                        FILES FLAGGED
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================= TOP CONTRIBUTORS ================= -->
+
+        <section class="paper-section">
+
+
+            <div class="paper-header">
+
+                <div>
+
+                    <span>
+                        ★ DEVELOPMENT TRAIL
+                    </span>
+
+                    <h2>
+                        TOP CONTRIBUTORS
+                    </h2>
+
+                </div>
+
+                <div class="paper-stamp">
+                    VERIFIED
+                </div>
+
+            </div>
+
+
+            {% if commits.top_contributors %}
+
+            <div class="contributors-list">
+
+                {% for contributor in commits.top_contributors %}
+
+                <div class="contributor-row">
+
+                    <div class="rank">
+                        #{{ forloop.counter }}
+                    </div>
+
+                    <div class="contributor-name">
+                        {{ contributor.0 }}
+                    </div>
+
+                    <div class="commit-count">
+                        {{ contributor.1 }} COMMITS
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <p class="empty-message">
+                No contributor information found.
+            </p>
+
+            {% endif %}
+
+        </section>
+
+
+
+        <!-- ================= CODEBASE ================= -->
+
+        <section class="paper-section">
+
+
+            <div class="paper-header">
+
+                <div>
+
+                    <span>
+                        ★ REPOSITORY MAP
+                    </span>
+
+                    <h2>
+                        CODEBASE OVERVIEW
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="file-table">
+
+                {% for file in files.files|slice:":15" %}
+
+                <div class="file-row">
+
+                    <span class="file-name">
+                        📄 {{ file.path }}
+                    </span>
+
+                    <span class="file-size">
+                        {{ file.size }} bytes
+                    </span>
+
+                </div>
+
+                {% empty %}
+
+                <p class="empty-message">
+                    No files detected.
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================= RISKS ================= -->
+
+        <section class="paper-section">
+
+
+            <div class="paper-header">
+
+                <div>
+
+                    <span>
+                        ★ SHERIFF'S REPORT
+                    </span>
+
+                    <h2>
+                        RISK DETECTION
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            {% if risks %}
+
+            <div class="risk-list">
+
+                {% for risk in risks %}
+
+                <div class="risk-row">
+
+                    <div>
+
+                        <strong>
+                            {{ risk.path }}
+                        </strong>
+
+                        <div class="risk-findings">
+
+                            {% for finding in risk.findings %}
+
+                                <span>
+                                    {{ finding }}
+                                </span>
+
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <div>
+
+                        {% if risk.risk == "HIGH" %}
+
+                            <span class="badge badge-high">
+                                HIGH
+                            </span>
+
+                        {% elif risk.risk == "MEDIUM" %}
+
+                            <span class="badge badge-medium">
+                                MEDIUM
+                            </span>
+
+                        {% else %}
+
+                            <span class="badge badge-low">
+                                LOW
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% else %}
+
+            <div class="safe-message">
+
+                ★ NO SIGNIFICANT RISK SIGNALS DETECTED ★
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="frontier-footer">
+
+        <div>
+
+            ★ DEVTRACE
+
+            <span>
+                FRONTIER INTELLIGENCE
+            </span>
+
+        </div>
+
+
+        <div>
+
+            THE TRAIL NEVER LIES. ★
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

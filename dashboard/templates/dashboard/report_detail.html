@@ -1,0 +1,620 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        DevTrace — Report {{ report.id }}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'dashboard/style.css' %}"
+    >
+
+</head>
+
+<body>
+
+<div class="frontier-page">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="frontier-header">
+
+        <div class="brand-area">
+
+            <div class="brand-badge">
+                D
+            </div>
+
+            <div>
+
+                <div class="brand-name">
+                    DEVTRACE
+                </div>
+
+                <div class="brand-subtitle">
+                    FRONTIER INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-status">
+
+            <span class="status-dot"></span>
+
+            SYSTEM ONLINE
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="report-detail-container">
+
+
+        <!-- =================================================
+             REPORT HEADER
+        ================================================== -->
+
+        <section class="wanted-header">
+
+            <div class="wanted-top">
+
+                <span>
+                    CASE FILE #{{ report.id }}
+                </span>
+
+                <span>
+                    {% if report.created_at %}
+                        {{ report.created_at|date:"d M Y" }}
+                    {% endif %}
+                </span>
+
+            </div>
+
+
+            <div class="wanted-title">
+
+                <div class="wanted-small">
+                    REPOSITORY INVESTIGATION
+                </div>
+
+                <h1>
+                    {{ report.repository_name }}
+                </h1>
+
+                <p>
+                    FRONTIER INTELLIGENCE REPORT
+                </p>
+
+            </div>
+
+
+            <div class="wanted-bottom">
+
+                <span>
+                    DEVTRACE
+                </span>
+
+                <span>
+                    CASE CLOSED
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="report-actions">
+
+            <a
+                href="{{ report.repository_url }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="frontier-btn secondary-btn"
+            >
+                VIEW GITHUB
+            </a>
+
+
+            <a
+                href="{% url 'dashboard:download_report' report.id %}"
+                class="frontier-btn primary-btn"
+            >
+                ↓ DOWNLOAD PDF REPORT
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+             STATS
+        ================================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    LANGUAGE
+                </span>
+
+                <strong>
+                    {{ report.language|default:"Unknown" }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    STARS
+                </span>
+
+                <strong>
+                    {{ report.stars }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    FORKS
+                </span>
+
+                <strong>
+                    {{ report.forks }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    OPEN ISSUES
+                </span>
+
+                <strong>
+                    {{ report.open_issues }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    COMMITS
+                </span>
+
+                <strong>
+                    {{ report.total_commits }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    CONTRIBUTORS
+                </span>
+
+                <strong>
+                    {{ report.contributors }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    FILES
+                </span>
+
+                <strong>
+                    {{ report.total_files }}
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-label">
+                    DIRECTORIES
+                </span>
+
+                <strong>
+                    {{ report.total_directories }}
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             REPOSITORY INTELLIGENCE
+        ================================================== -->
+
+        <section class="report-section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    01
+                </span>
+
+                <div>
+
+                    <h2>
+                        Repository Intelligence
+                    </h2>
+
+                    <p>
+                        Core metadata extracted from the repository.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                {% for key, value in report.repository_data.items %}
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            {{ key|title|cut:"_" }}
+                        </span>
+
+                        <div class="data-value">
+
+                            {% if value.items %}
+
+                                <pre>{{ value }}</pre>
+
+                            {% else %}
+
+                                {{ value }}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-state">
+                        No repository intelligence available.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COMMIT INTELLIGENCE
+        ================================================== -->
+
+        <section class="report-section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    02
+                </span>
+
+                <div>
+
+                    <h2>
+                        Commit Intelligence
+                    </h2>
+
+                    <p>
+                        Development activity and contribution analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                {% for key, value in report.commit_data.items %}
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            {{ key|title|cut:"_" }}
+                        </span>
+
+                        <div class="data-value">
+
+                            {% if value.items %}
+
+                                <pre>{{ value }}</pre>
+
+                            {% else %}
+
+                                {{ value }}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-state">
+                        No commit intelligence available.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FILE INTELLIGENCE
+        ================================================== -->
+
+        <section class="report-section">
+
+            <div class="section-heading">
+
+                <span class="section-number">
+                    03
+                </span>
+
+                <div>
+
+                    <h2>
+                        File System Intelligence
+                    </h2>
+
+                    <p>
+                        Repository structure and file analysis.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="info-grid">
+
+                {% for key, value in report.file_data.items %}
+
+                    <div class="data-card">
+
+                        <span class="data-label">
+                            {{ key|title|cut:"_" }}
+                        </span>
+
+                        <div class="data-value">
+
+                            {% if value.items %}
+
+                                <pre>{{ value }}</pre>
+
+                            {% elif value|length > 20 %}
+
+                                {{ value|length }} items detected
+
+                            {% else %}
+
+                                {{ value }}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="empty-state">
+                        No file intelligence available.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RISK ANALYSIS
+        ================================================== -->
+
+        <section class="report-section">
+
+            <div class="section-heading">
+
+                <span class="section-number danger-number">
+                    04
+                </span>
+
+                <div>
+
+                    <h2>
+                        Risk Investigation
+                    </h2>
+
+                    <p>
+                        Potential repository risks detected by DevTrace.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% if report.risk_data %}
+
+                <div class="risk-list">
+
+                    {% for risk in report.risk_data %}
+
+                        <div class="risk-card">
+
+                            <div class="risk-icon">
+                                !
+                            </div>
+
+                            <div class="risk-content">
+
+                                {% if risk.items %}
+
+                                    {% for key, value in risk.items %}
+
+                                        <div class="risk-field">
+
+                                            <span>
+                                                {{ key|title|cut:"_" }}
+                                            </span>
+
+                                            <strong>
+                                                {{ value }}
+                                            </strong>
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                {% else %}
+
+                                    <p>
+                                        {{ risk }}
+                                    </p>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="safe-report">
+
+                    <div class="safe-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            No Significant Risks Detected
+                        </strong>
+
+                        <p>
+                            DevTrace did not identify any
+                            significant repository risks.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             REPORT FOOTER
+        ================================================== -->
+
+        <footer class="report-footer">
+
+            <div>
+
+                <strong>
+                    DEVTRACE
+                </strong>
+
+                <span>
+                    FRONTIER INTELLIGENCE
+                </span>
+
+            </div>
+
+            <div>
+
+                CASE FILE #{{ report.id }}
+
+            </div>
+
+            <div>
+
+                <span>
+                    REPORT GENERATED
+                </span>
+
+                <strong>
+                    {% if report.created_at %}
+                        {{ report.created_at|date:"d M Y · H:i" }}
+                    {% endif %}
+                </strong>
+
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

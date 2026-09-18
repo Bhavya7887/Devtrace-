@@ -1,0 +1,239 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        DevTrace — Case Files
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'dashboard/style.css' %}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="frontier-page">
+
+
+    <header class="frontier-header">
+
+        <div class="brand">
+
+            <div class="brand-badge">
+                <span>D</span>
+            </div>
+
+            <div class="brand-text">
+
+                <div class="brand-name">
+                    DEVTRACE
+                </div>
+
+                <div class="brand-sub">
+                    FRONTIER INTELLIGENCE
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div class="online-status">
+
+                <span class="online-dot"></span>
+
+                SYSTEM ONLINE
+
+            </div>
+
+            <a
+                href="/"
+                class="new-investigation"
+            >
+                ★ NEW INVESTIGATION
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+        <section class="result-hero">
+
+            <div class="hero-eyebrow">
+                ★ ARCHIVED INVESTIGATIONS ★
+            </div>
+
+            <h1 class="result-title">
+
+                CASE
+
+                <span>
+                    FILES.
+                </span>
+
+            </h1>
+
+            <div class="repository-name">
+
+                {{ reports|length }}
+                INVESTIGATIONS STORED
+
+            </div>
+
+        </section>
+
+
+
+        <section class="paper-section">
+
+            <div class="paper-header">
+
+                <div>
+
+                    <span>
+                        ★ FRONTIER ARCHIVES
+                    </span>
+
+                    <h2>
+                        SAVED REPORTS
+                    </h2>
+
+                </div>
+
+                <div class="paper-stamp">
+                    ARCHIVE
+                </div>
+
+            </div>
+
+
+            {% if reports %}
+
+                <div class="reports-list">
+
+                    {% for report in reports %}
+
+                    <a
+                        href="{% url 'report_detail' report.id %}"
+                        class="report-row"
+                    >
+
+                        <div class="report-number">
+
+                            #{{ report.id }}
+
+                        </div>
+
+
+                        <div class="report-info">
+
+                            <strong>
+
+                                {{ report.repository_name }}
+
+                            </strong>
+
+                            <span>
+
+                                {{ report.repository_url }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="report-stats">
+
+                            <span>
+                                ★ {{ report.stars }}
+                            </span>
+
+                            <span>
+                                ⚒ {{ report.total_commits }}
+                            </span>
+
+                            <span>
+                                📁 {{ report.total_files }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="report-date">
+
+                            {{ report.created_at|date:"d M Y" }}
+
+                        </div>
+
+                    </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-message">
+
+                    ★ NO CASE FILES FOUND ★
+
+                    <br><br>
+
+                    Start your first repository investigation.
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+
+    <footer class="frontier-footer">
+
+        <div>
+
+            ★ DEVTRACE
+
+            <span>
+                FRONTIER INTELLIGENCE
+            </span>
+
+        </div>
+
+        <div>
+
+            THE TRAIL NEVER LIES. ★
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>
